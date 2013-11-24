@@ -44,7 +44,10 @@ namespace Puzzles.TowersOfHanoi
         {
             Console.WriteLine("Theoretical minimum of moves: {0}", this.TheoreticalMinimum);
 
-            this.Move(this.NumberOfDisks, 1, 3, 2);
+            foreach (var move in this.Move(this.NumberOfDisks, 1, 3, 2))
+            {
+                Console.WriteLine(move);
+            }
 
             Console.WriteLine("Total moves: {0}", this.TotalMoves);
         }
@@ -56,12 +59,12 @@ namespace Puzzles.TowersOfHanoi
         /// <param name="fromRod">The originating rod</param>
         /// <param name="toRod">The target rod</param>
         /// <param name="viaRod">The proxy rod</param>
-        private void Move(int numberOfDisks, int fromRod, int toRod, int viaRod)
+        private IEnumerable<string> Move(int numberOfDisks, int fromRod, int toRod, int viaRod)
         {
             if (numberOfDisks > 0)
             {
                 Move(numberOfDisks - 1, fromRod, viaRod, toRod);
-                Console.WriteLine("Move disk from pole #{0} to #{1}", fromRod, toRod);
+                yield return string.Format("Move disk from pole #{0} to #{1}", fromRod, toRod);
                 this.TotalMoves++;
                 Move(numberOfDisks - 1, viaRod, toRod, fromRod);
             }
