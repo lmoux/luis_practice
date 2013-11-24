@@ -12,6 +12,9 @@ namespace Puzzles.TowersOfHanoi
     public class Solver
     {
         #region Fields
+        /// <summary>
+        /// The maximum number of disks we can currently solve
+        /// </summay>
         public const int MaximumSize = 32;
         #endregion
 
@@ -23,7 +26,7 @@ namespace Puzzles.TowersOfHanoi
         public Solver(int numberOfDisks)
         {
             if (numberOfDisks > MaximumSize)
-                new ArgumentNullException(
+                new ArgumentException(
                     string.Format("The data structures we used can handle up to {0} disks", MaximumSize));
 
             this.NumberOfDisks = numberOfDisks;
