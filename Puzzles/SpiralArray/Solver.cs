@@ -32,26 +32,7 @@ namespace Puzzles.SpiralArray
         public void Solve()
         {
             var result = this.Generate();
-            PrettyPrint(result, this.Rank);
-        }
-
-        public static void PrettyPrint(int[,] result, int rank)
-        {
-            var padding = Convert.ToInt32(
-                Math.Ceiling(
-                    Math.Log10(rank * rank)));
-            var format = string.Concat("D", padding);
-            Func<int, string> formatter = number => string.Concat(number.ToString(format), " ");
-
-            for (int row = 0; row < rank; row++)
-            {
-                for (int column = 0; column < rank; column++)
-                {
-                    Console.Write(formatter(result[row, column]));
-                }
-
-                Console.Write(Environment.NewLine);
-            }
+            result.PrettyPrintSquare(this.Rank);
         }
 
         public static IEnumerable<Point> SpiralPath(int rank)

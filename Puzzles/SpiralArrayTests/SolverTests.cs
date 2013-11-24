@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Linq;
+using Puzzles.Tests;
 
 namespace Puzzles.SpiralArray.Tests
 {
@@ -18,7 +19,7 @@ namespace Puzzles.SpiralArray.Tests
         };
 
         [TestMethod]
-        public void PathWalk()
+        public void SpiralPathWalks()
         {
             //var points = Solver.OuterLoop(2, Tuple.Create(1,1)).ToList();
             //foreach (var point in points) Console.WriteLine(point);
@@ -32,7 +33,7 @@ namespace Puzzles.SpiralArray.Tests
             Assert.AreEqual(4, Solver.OuterLoop(2, Tuple.Create(1, 1)).Count());
 
             Assert.IsTrue(
-                AreEquivalent(
+                TestingUtilities.AreEquivalent(
                     new List<Tuple<int, int>>
                                 {
                                     Tuple.Create(0,0),
@@ -40,7 +41,7 @@ namespace Puzzles.SpiralArray.Tests
                     Solver.OuterLoop(1)));
 
             Assert.IsTrue(
-                AreEquivalent(
+                TestingUtilities.AreEquivalent(
                     new List<Tuple<int, int>>
                                 {
                                     Tuple.Create(0,0),
@@ -56,7 +57,7 @@ namespace Puzzles.SpiralArray.Tests
                     Solver.SpiralPath(3)));
 
             Assert.IsTrue(
-                AreEquivalent(
+                TestingUtilities.AreEquivalent(
                     new List<Tuple<int, int>>
                     {
                         Tuple.Create(0,0),
@@ -67,7 +68,7 @@ namespace Puzzles.SpiralArray.Tests
                     Solver.OuterLoop(2)));
 
             Assert.IsTrue(
-                AreEquivalent(
+                TestingUtilities.AreEquivalent(
                     new List<Tuple<int, int>>
                     {
                         Tuple.Create(0,0),
@@ -84,22 +85,22 @@ namespace Puzzles.SpiralArray.Tests
         }
 
         [TestMethod]
-        public void Generate()
+        public void GenerateSpiralArray()
         {
             foreach (var test in testBed)
             {
                 var actual = new Solver(test.Key).Generate();
                 try
                 {
-                    Check(test.Value, actual);
+                    TestingUtilities.AssertEquality(test.Value, actual);
                 }
                 catch
                 {
                     Console.WriteLine("Expected:");
-                    Solver.PrettyPrint(test.Value, test.Key);
+                    Utilities.PrettyPrintSquare(test.Value, test.Key);
                     Console.WriteLine("-------------");
                     Console.WriteLine("Actual:");
-                    Solver.PrettyPrint(actual, test.Key);
+                    Utilities.PrettyPrintSquare(actual, test.Key);
                     Console.WriteLine("-------------");
                     Assert.Fail();
                 }
@@ -107,23 +108,6 @@ namespace Puzzles.SpiralArray.Tests
 
             //new Solver(2).Solve(), 
 
-        }
-
-        public static bool AreEquivalent<T>(IEnumerable<T> first, IEnumerable<T> second)
-        {
-            return first
-                .Zip(second, (y, x) => y.Equals(x))
-                .Aggregate(true, (current, accumulation) => accumulation &= current);
-        }
-
-        public static void Check(int[,] first, int[,] second)
-        {
-            Assert.AreEqual(first.Length, second.Length);
-            for (int row = 0; row < first.GetLength(0); row++)
-                for (int column = 0; column < first.GetLength(1); column++)
-                {
-                    Assert.AreEqual(first[row, column], second[row, column], Tuple.Create(row, column).ToString());
-                }
         }
     }
 }
