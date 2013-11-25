@@ -9,6 +9,8 @@ namespace Puzzles
     public enum PuzzleNature
     {
         Mathematical,
-        Logic
+        Logic,
+        Algorithm,
+        DataStructure
     }
 }
