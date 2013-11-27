@@ -6,19 +6,9 @@
     public interface IPuzzle
     {
         /// <summary>
-        /// Gets what kind of puzzle we are dealing with
+        /// Getrs the identity of the puzzle
         /// </summary>
-        PuzzleNature Kind { get; }
-
-        /// <summary>
-        /// The name of the puzzle
-        /// </summary>
-        string Title { get; }
-
-        /// <summary>
-        /// Describes the puzzle including the rules
-        /// </summary>
-        string Description { get; }
+        Puzzles.DomainModel.Puzzle.Identifier Id { get; }
 
         /// <summary>
         /// Runs the puzzle

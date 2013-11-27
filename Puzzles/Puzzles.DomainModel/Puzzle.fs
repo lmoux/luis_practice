@@ -1,21 +1,26 @@
 ﻿namespace Puzzles.DomainModel
 
 type Utils =
-    static member CombineText x y = x + System.Environment.NewLine + y
+    static member CombineText x y = x + System.Environment.NewLine + "\t" + y
     // LMD> Somehow need to curry/partially apply String.concat with my seeded spearator = NewLine
     ////static member PrettyPrintDescription string seq = List.reduce Utils.CombineText 
 
 type BigOh(expression : string) =
     member this.Expression = expression
 
+[<RequireQualifiedAccess>]
 module Algorithms =
     [<RequireQualifiedAccess>]
     type Description =
-    | Sorting of isStable:bool * averageCase:BigOh * worstCase:BigOh
-    | Hashing
-    | Compression
-    
-    [<RequireQualifiedAccess>]
+        | Sorting of isStable:bool * averageCase:BigOh * worstCase:BigOh
+        | Hashing
+        | Compression
+        override this.ToString() =
+            match this with
+                | Sorting(isStable, averageCase, _) -> sprintf "%s sorting with worst case %s" (if isStable then "stable" else "unstable") averageCase.Expression
+                | _ -> "TO BE DESCRIBED LATER"
+
+
     type Algorithm(name:string, description:Description) =
         member this.Name = name
         member this.Title = sprintf "Algorithm: %s" this.Name
@@ -23,6 +28,7 @@ module Algorithms =
         override this.ToString() =
             Utils.CombineText this.Title (this.Description.ToString())
 
+[<RequireQualifiedAccess>]
 module DataStructures =
     [<RequireQualifiedAccess>]
     type Description =
@@ -31,7 +37,6 @@ module DataStructures =
     | Hashes
     | Graphs
 
-    [<RequireQualifiedAccess>]
     type DataStructure(name:string, description:Description) =
         member this.Name = name
         member this.Title = sprintf "Data structure: %s" this.Name
@@ -39,6 +44,7 @@ module DataStructures =
         override this.ToString() =
             Utils.CombineText this.Title (this.Description.ToString())
 
+[<RequireQualifiedAccess>]
 module ProjectEuler =
 
     [<RequireQualifiedAccess>]
@@ -47,7 +53,6 @@ module ProjectEuler =
     | WithAlgorithms of Description * algorithmsInvolved:Algorithms.Algorithm seq
     | WithDataStructures of Description * dataStructuresInvolved:DataStructures.DataStructure seq
 
-    [<RequireQualifiedAccess>]
     type Problem(id:int, description:Description) =
         member this.Id = id
         member this.Title = sprintf "Project Euler #%d" id
@@ -55,8 +60,8 @@ module ProjectEuler =
         override this.ToString() =
             Utils.CombineText this.Title (this.Description.ToString())
 
+[<RequireQualifiedAccess>]
 module Puzzle =
-    [<RequireQualifiedAccess>]
     type Identifier =
         | GeneralMathematical of name:string * description:string
         | GeneralLogic of name:string * description:string
@@ -65,8 +70,8 @@ module Puzzle =
         | Algorithm of Algorithms.Algorithm
         override this.ToString() =
             match this with
-                | GeneralMathematical(name, description) -> sprintf "General math problem: %s" name
-                | GeneralLogic(name, description) -> sprintf "General logic problem: %s" name
+                | GeneralMathematical(name, description) -> description |>  Utils.CombineText(sprintf "General math problem: %s" name)
+                | GeneralLogic(name, description) -> Utils.CombineText (sprintf "General logic problem: %s" name) description
                 | ProjectEuler(proper) -> proper.ToString()
                 | DataStructure(proper) -> proper.ToString()
                 | Algorithm(proper) -> proper.ToString()

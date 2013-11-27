@@ -5,12 +5,15 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Domain = Puzzles.DomainModel.Puzzle;
 
 namespace Puzzles.SpiralArray
 {
     [Export(typeof(IPuzzle))]
     public class Puzzle : IPuzzle
     {
+        private static readonly Domain.Identifier id = Domain.Identifier.NewGeneralLogic("Spiral NxN array", description);
+ 
         private const string description = @"
 Generate an NxN square matrix on which elements are arrainged in spiral order such as:
 For N = 3:
@@ -32,14 +35,7 @@ For N = 5
     13 12 11 10 09
 ";
 
-        public PuzzleNature Kind { get { return PuzzleNature.Mathematical; } }
-
-        public string Title { get { return "Spiral NxN array"; } }
-
-        public string Description
-        {
-            get { return description; }
-        }
+        public Domain.Identifier Id { get { return id; } }
 
         public void Run()
         {

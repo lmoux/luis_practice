@@ -4,6 +4,7 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Domain = Puzzles.DomainModel.Puzzle;
 
 namespace Puzzles.TowersOfHanoi
 {
@@ -11,6 +12,8 @@ namespace Puzzles.TowersOfHanoi
     public class Puzzle : IPuzzle
     {
         #region Fields
+        private static readonly Domain.Identifier id = Domain.Identifier.NewGeneralLogic("Towers of Hanoi", description);
+
         private const string description = @"
 It consists of three rods, and a number of disks of different sizes which can slide onto any rod. The puzzle starts with the disks in a neat stack in ascending order of size on one rod, the smallest at the top, thus making a conical shape.
 The objective of the puzzle is to move the entire stack to another rod, obeying the following simple rules:
@@ -23,11 +26,7 @@ With three disks, the puzzle can be solved in seven moves. The minimum number of
         #endregion
 
         #region Properties
-        public PuzzleNature Kind { get { return PuzzleNature.Mathematical; } }
-
-        public string Title { get { return "Towers of Hanoi"; } }
-
-        public string Description { get { return description; } }
+        public Domain.Identifier Id { get { return id; } }
         #endregion
 
         #region Methods
@@ -42,7 +41,7 @@ With three disks, the puzzle can be solved in seven moves. The minimum number of
                     .Solver(numberOfDisks)
                     .Solve();
             }
-            else 
+            else
             {
                 Console.Error.WriteLine("Expected a positive number up to {0}", TowersOfHanoi.Solver.MaximumSize);
             }

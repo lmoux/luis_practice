@@ -4,25 +4,18 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Domain = Puzzles.DomainModel.Puzzle;
 
 namespace Puzzles.ArrayRotation
 {
     [Export(typeof(IPuzzle))]
     public class Puzzle : IPuzzle
     {
-        public PuzzleNature Kind
-        {
-            get { return PuzzleNature.Mathematical; }
-        }
+        private static readonly Domain.Identifier id = Domain.Identifier.NewGeneralMathematical("Array Rotation", "Rotates 2-dimensional arrays");
 
-        public string Title
+        public Domain.Identifier Id
         {
-            get { return "Rotates 2-dimensional arrays"; }
-        }
-
-        public string Description
-        {
-            get { return this.Title; }
+            get { return id; }
         }
 
         public void Run()

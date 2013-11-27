@@ -49,6 +49,10 @@
       <Project>{edca4cd9-5f7d-450d-bc29-79ed03ea83b0}</Project>
       <Name>Algebra</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Puzzles.DomainModel\Puzzles.DomainModel.fsproj">
+      <Project>{ecef6b86-0922-4474-bf0a-7c8dd951976c}</Project>
+      <Name>Puzzles.DomainModel</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Puzzles\Puzzles.csproj">
       <Project>{c36dfde1-3c45-4fce-b255-66629625f17a}</Project>
       <Name>Puzzles</Name>

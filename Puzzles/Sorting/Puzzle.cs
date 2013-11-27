@@ -5,29 +5,31 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Domain = Puzzles.DomainModel.Puzzle;
 
 namespace Puzzles.Sorting
 {
     [Export(typeof(IPuzzle))]
-    public class Puzzle: IPuzzle
+    public class Puzzle : IPuzzle
     {
+        #region Fields
+        private static readonly Domain.Identifier id;
+        #endregion
+
+        #region Constructors
+        static Puzzle()
+        {
+            var bigoh = new DomainModel.BigOh("N^2");
+            var description = DomainModel.Algorithms.Description.NewSorting(true, bigoh, bigoh);
+            var algorithm = new DomainModel.Algorithms.Algorithm("Bubble sort", description);
+            id = Domain.Identifier.NewAlgorithm(algorithm);
+        }
+        #endregion
+
         #region Properties
-        public PuzzleNature Kind
+        public DomainModel.Puzzle.Identifier Id
         {
-            get { return PuzzleNature.Algorithm; }
-        }
-
-        public string Title
-        {
-            get { return "Sort a collection of numbers"; }
-        }
-
-        public string Description
-        {
-            get
-            {
-                return "Order ascendingly a collection of numbers without relying on framework implementations for sorting.";
-            }
+            get { return id; }
         }
         #endregion
 
@@ -37,7 +39,7 @@ namespace Puzzles.Sorting
             Console.WriteLine("Put numbers to sort in the following separated by spaces");
             var numbers = Console.ReadLine()
                 .Split(new char[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries)
-                .Select( x =>
+                .Select(x =>
                     {
                         int number;
                         var include = int.TryParse(x, out number);
@@ -49,7 +51,7 @@ namespace Puzzles.Sorting
 
             Console.WriteLine("Sorted: ");
             Solver.InPlace.BubbleSort(numbers);
-            foreach(int number in numbers)
+            foreach (int number in numbers)
             {
                 Console.Write("{0} ", number);
             }

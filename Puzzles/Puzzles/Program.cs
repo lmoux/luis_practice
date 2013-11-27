@@ -18,9 +18,7 @@ namespace Puzzles
             {
                 var puzzle = puzzles[puzzleIndex];
                 Console.WriteLine("ID: {0}", puzzleIndex);
-                Console.WriteLine("\tKind: {0}", puzzle.Kind);
-                Console.WriteLine("\tTitle: {0}", puzzle.Title);
-                Console.WriteLine("\tDescription: {0}", puzzle.Description);
+                Console.WriteLine(puzzle.Id);
             }
 
             if (puzzles.Count == 0)
