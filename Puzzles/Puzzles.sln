@@ -29,7 +29,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sorting", "Sorting\Sorting.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SortingTests", "SortingTests\SortingTests.csproj", "{9DAC7F52-6212-4487-A7CE-1A92BD41BC63}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Puzzles.DomainModel", "Puzzels.DomainModel\Puzzles.DomainModel.fsproj", "{ECEF6B86-0922-4474-BF0A-7C8DD951976C}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Puzzles.DomainModel", "Puzzles.DomainModel\Puzzles.DomainModel.fsproj", "{ECEF6B86-0922-4474-BF0A-7C8DD951976C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
