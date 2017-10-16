@@ -1,0 +1,3 @@
+[submodule "codingProblems"]
+	path = codingProblems
+	url = https://github.com/lmoux/codingProblems.git
